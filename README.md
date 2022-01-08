@@ -1,6 +1,8 @@
-# App
+![Build and Deploy](https://github.com/scraymer/sca/workflows/Build%20and%20Deploy/badge.svg)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
+# Simple Coffee App (SCA)
+
+A Simple Coffee App (SCA) to help prepare coffee using a French Press based on the user's coffee preferences. It is a Progress Web App (PWA) using Google Material Design light and dark appearance. This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
 
 ## Development server
 
@@ -12,7 +14,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. By default, it uses the production environment configuration.
 
 ## Running unit tests
 
