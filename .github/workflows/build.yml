@@ -1,0 +1,85 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Setup Cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Define Environment Variables
+        run: |
+          echo "PKG_VERSION=$(node -p 'require('\''./package.json'\'').version')" >> $GITHUB_ENV
+          echo "PKG_VERSION_SUFFIX=$(date +'%Y%m%d.%-H%M')" >> $GITHUB_ENV
+
+      - name: Version
+        run: |
+          npm version ${{ env.PKG_VERSION }}-${{ env.PKG_VERSION_SUFFIX }} --no-git-tag-version
+
+      - name: Install
+        run: |
+          npm ci
+
+      - name: Build
+        run: |
+          npm run clean
+          npm run build -- --base-href ${{ secrets.BASE_HREF }}
+
+      - name: Upload Build
+        uses: actions/upload-artifact@v1
+        if: success()
+        with:
+          name: build
+          path: dist/app
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Setup SSH Client
+        uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Download Build
+        uses: actions/download-artifact@v1
+        with:
+          name: build
+          path: dist/app
+
+      - name: Deploy Build
+        uses: JamesIves/github-pages-deploy-action@3.4.6
+        with:
+          BRANCH: gh-pages
+          FOLDER: dist/app
+          CLEAN: true
+          SSH: true
