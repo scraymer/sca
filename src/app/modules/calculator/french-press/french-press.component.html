@@ -3,7 +3,7 @@
   <mat-form-field class="app-form-field app-amount-form-field">
     <mat-label>Amount (fl. oz)</mat-label>
     <mat-select formControlName="amount">
-      <mat-option *ngFor="let option of [12, 17, 34, 51]" [value]="option * 29.57">
+      <mat-option *ngFor="let option of [12, 17, 34, 51]" [value]="option">
         {{ option }}
       </mat-option>
     </mat-select>
