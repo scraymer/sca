@@ -52,7 +52,7 @@ export class FrenchPressComponent implements OnInit {
 
   private toFluidFormat(value: number, measurement: MeasurementSystem): string {
     const isImperial = measurement === 'imperial';
-    return `${(value ?? 0).toFixed(isImperial ? 1 : 0)} (${isImperial ? 'fl oz' : 'ml'})`;
+    return `${(value ?? 0).toFixed(isImperial ? 1 : 0)} ${isImperial ? 'fl oz' : 'ml'}`;
   }
 
   private toPressSizeOptions(measurement: MeasurementSystem): Array<FrenchPressSizeOption> {
@@ -73,10 +73,10 @@ export class FrenchPressComponent implements OnInit {
 
   private toSolidFormat(value: number, measurement: MeasurementSystem): string {
     const isImperial = measurement === 'imperial';
-    return `${(value ?? 0).toFixed(isImperial ? 1 : 0)} (${isImperial ? 'oz' : 'g'})`;
+    return `${(value ?? 0).toFixed(isImperial ? 1 : 0)} ${isImperial ? 'oz' : 'g'}`;
   }
 
   private toTimeFormat(value: number): string {
-    return `${value ?? 0} (min)`;
+    return `${value ?? 0} min`;
   }
 }
