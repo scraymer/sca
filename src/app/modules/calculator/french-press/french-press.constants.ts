@@ -10,5 +10,5 @@ export class FrenchPressConstants {
   /**
    * Default French Press form input values.
    */
-  static readonly DEFAULT_INPUT: FrenchPressInput = { amount: 12, strength: 4 };
+  static readonly DEFAULT_INPUT: FrenchPressInput = { amount: 12, strength: 4, measurement: 'imperial' };
 }

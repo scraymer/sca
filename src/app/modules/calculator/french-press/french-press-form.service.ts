@@ -32,12 +32,17 @@ export class FrenchPressFormService implements OnDestroy {
   private build(options: FrenchPressInput): FormGroup {
     return this.formBuilder.group({
       amount: [ options.amount, [ Validators.required, Validators.min(1) ] ],
-      strength: [ options.strength, [ Validators.required, Validators.min(1), Validators.max(7) ] ]
+      strength: [ options.strength, [ Validators.required, Validators.min(1), Validators.max(7) ] ],
+      measurement: [ options.measurement, [ Validators.required, Validators.pattern(/^(imperial|metric)$/g) ] ]
     });
   }
 
   private defaults(): FrenchPressInput {
-    const prev = this.storage.get(FrenchPressConstants.DEFAULT_INPUT_STORAGE_KEY) as FrenchPressInput;
-    return prev ?? FrenchPressConstants.DEFAULT_INPUT;
+    const prev: FrenchPressInput = this.storage.get(FrenchPressConstants.DEFAULT_INPUT_STORAGE_KEY) ?? {};
+    return {
+      amount: prev.amount ?? FrenchPressConstants.DEFAULT_INPUT.amount,
+      strength: prev.strength ?? FrenchPressConstants.DEFAULT_INPUT.strength,
+      measurement: prev.measurement ?? FrenchPressConstants.DEFAULT_INPUT.measurement
+    };
   }
 }

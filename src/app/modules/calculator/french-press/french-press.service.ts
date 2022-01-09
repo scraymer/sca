@@ -34,10 +34,16 @@ export class FrenchPressService implements OnDestroy {
   }
 
   calculate(options: FrenchPressInput): FrenchPressOutput {
-    const amountInGrams = options.amount * 29.57;
     return {
-      coffee: amountInGrams / (17 - options.strength),
-      water: amountInGrams
+      coffee: options.amount / this.ratio(options.strength),
+      water: options.amount,
+      time: 4,
+      grind: 'Coarse',
+      measurement: options.measurement
     };
+  }
+
+  ratio(strength: number): number {
+    return 17 - strength;
   }
 }
