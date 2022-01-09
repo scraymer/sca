@@ -1,0 +1,22 @@
+<h1 class="app-title">French Press Calculator</h1>
+<form class="app-input" [formGroup]="form">
+  <mat-form-field class="app-form-field app-amount-form-field">
+    <mat-label>Amount (fl. oz)</mat-label>
+    <mat-select formControlName="amount">
+      <mat-option *ngFor="let option of [12, 17, 34, 51]" [value]="option * 29.57">
+        {{ option }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="app-form-field app-strength-form-field">
+    <span class="app-label app-label-mute">Weak</span>
+    <span class="app-label">Strength</span>
+    <span class="app-label app-label-mute">Strong</span>
+    <mat-slider class="app-slider" formControlName="strength" max="7" min="1" step="1" tickInterval="1" thumbLabel>
+    </mat-slider>
+  </div>
+</form>
+<section class="app-output">
+  <mat-card class="app-card-info">Coffee (g): {{ coffee | async | number }}</mat-card>
+  <mat-card class="app-card-info">Water (g): {{ water | async | number }}</mat-card>
+</section>
