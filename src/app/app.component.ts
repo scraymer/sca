@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CacheService } from './core/cache/cache.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
+
+  constructor(private cacheService: CacheService) {}
 }
