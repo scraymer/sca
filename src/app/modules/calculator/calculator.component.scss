@@ -7,10 +7,17 @@
   margin-bottom: 0;
 }
 
-.app-subtitle, .app-footer {
+.app-subtitle {
   font-weight: 100;
-  outline-color: 0.6;
 }
+
+.app-footer {
+  margin-top: 16px;
+  font-weight: 100;
+  opacity: 0.6;
+
+}
+
 .app-calculator {
   display: block;
   max-width: 700px;
